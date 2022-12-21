@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  email: necaibot@gmail.com
+  email_password: Necaibot1234
+kind: ConfigMap
+metadata:
+  name: email-env

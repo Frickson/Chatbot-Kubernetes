@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: trainengine
+  name: trainengine
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: trainengine
+  template:
+    metadata:
+      labels:
+        app: trainengine
+    spec:
+      containers:
+      - image: msbunecsc/cb-trainengine
+        name: trainengine
+        ports:
+        - containerPort: 8099
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: trainengine
+  name: trainengine
+spec:
+  ports:
+  - name: "8099"
+    port: 8099
+    targetPort: 8099
+  selector:
+    app: trainengine
+status:
+  loadBalancer: {}
+

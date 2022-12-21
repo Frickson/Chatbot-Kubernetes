@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: coreengine
+  name: coreengine
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: coreengine
+  template:
+    metadata:
+      labels:
+        app: coreengine
+    spec:
+      containers:
+      - image: msbunecsc/cb-coreengine
+        name: coreengine
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: coreengine
+  name: coreengine
+spec:
+  clusterIP: None
+  ports:
+  - name: headless
+    port: 55555
+    targetPort: 0
+  selector:
+    app: coreengine
+status:
+  loadBalancer: {}
+
+

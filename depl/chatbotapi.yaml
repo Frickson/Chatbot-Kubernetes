@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: chatbotapi
+  name: chatbotapi
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: chatbotapi
+  template:
+    metadata:
+      labels:
+        app: chatbotapi
+    spec:
+      containers:
+      - env:
+        - name: MASQL_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: MASQL_HOST
+              name: db-env
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              key: MYSQL_DATABASE
+              name: db-env
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: MYSQL_PASSWORD
+              name: db-env
+        - name: MYSQL_USER
+          valueFrom:
+            configMapKeyRef:
+              key: MYSQL_USER
+              name: db-env
+        - name: NODE_ENV
+          value: development
+        - name: jwtSecret
+          value: soseCREToMg8228
+        image: msbunecsc/cb-chatbotapi
+        name: chatbotapi
+        volumeMounts:
+        - mountPath: /home/node/app/volume
+          name: chatbotapi-pv
+      restartPolicy: Always
+      volumes:
+      - name: chatbotapi-pv
+        persistentVolumeClaim:
+          claimName: chatbotapi-claim
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: chatbotapi
+  name: chatbotapi
+spec:
+  clusterIP: None
+  ports:
+  - name: headless
+    port: 55555
+    targetPort: 0
+  selector:
+    app: chatbotapi
+status:
+  loadBalancer: {}

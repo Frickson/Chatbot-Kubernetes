@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: webserver
+  name: webserver
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: webserver
+  template:
+    metadata:
+      labels:
+        app: webserver
+    spec:
+      containers:
+      - env:
+        - name: MAMONGO_HOST
+          value: mongoserver
+        - name: MASQL_HOST
+          value: dbserver
+        - name: MYSQL_DATABASE
+          value: NECAIDB
+        - name: MYSQL_PASSWORD
+          value: NECAIDBuser20171020
+        - name: MYSQL_USER
+          value: necaisbuser      
+        - name: NODE_ENV
+          value: development
+        - name: jwtSecret
+          value: soseCREToMg8228
+        image: msbunecsc/cb-webserver
+        name: webserver
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        volumeMounts:
+        - mountPath: /filestorage
+          name: filestoragevol
+      restartPolicy: Always
+      volumes:
+      - name: filestoragevol
+        persistentVolumeClaim:
+          claimName: filestorage-claim
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: webserver
+  name: webserver
+spec:
+  ports:
+  - name: "http"
+    port: 80
+    targetPort: 80
+  - name: "https"
+    port: 443
+    targetPort: 443
+  selector:
+    app: webserver
+  type: LoadBalancer

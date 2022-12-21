@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: authapi
+  name: authapi
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: authapi
+  template:
+    metadata:
+      labels:
+        app: authapi
+    spec:
+      containers:
+      - env:
+        - name: MAMONGO_HOST
+          value: mongoserver
+        - name: MASQL_HOST
+          value: dbserver
+        - name: MYSQL_DATABASE
+          value: NECAIDB
+        - name: MYSQL_PASSWORD
+          value: NECAIDBuser20171020
+        - name: MYSQL_USER
+          value: necaidbuser
+        - name: NODE_ENV
+          value: development
+        - name: jwtSecret
+          value: soseCREToMg8228
+        - name: email
+          value: necaibot@gmail.com
+        - name: email_password
+          value: Necaibot1234
+        - name: confidentLevel
+          value: '0.100'
+        - name: cycle
+          value: '100'
+        - name: mode
+          value: AFM
+        image: msbunecsc/cb-authapi
+        name: authapi
+        volumeMounts:
+        - mountPath: /home/node/app/env
+          name: env-var
+          readOnly: true
+      restartPolicy: Always
+      volumes:
+      - name: env-var
+        configMap:
+          name: env-var
+          items:
+            - key: .env
+              path: .env
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: authapi
+  name: authapi
+spec:
+  clusterIP: None
+  ports:
+  - name: headless
+    port: 55555
+    targetPort: 0
+  selector:
+    app: authapi
+status:
+  loadBalancer: {}

@@ -1,0 +1,113 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: api-volume
+  labels:
+    type: api
+spec:
+  capacity:
+    storage: 600Mi  # allocate the space you want
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: vcloud-direct-policy
+  hostPath:
+    path: "/mnt/api-data"
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: authapi-claim
+  labels:
+    type: api
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+  storageClassName: vcloud-direct-policy
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: userapi-claim
+  labels:
+    type: api
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+  storageClassName: vcloud-direct-policy
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: livechatapi-claim
+  labels:
+    type: api
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+  storageClassName: vcloud-direct-policy
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: chatbotapi-claim
+  labels:
+    type: api
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+  storageClassName: vcloud-direct-policy
+
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: socketserver-claim
+  labels:
+    type: api
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+  storageClassName: vcloud-direct-policy
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: videoserver-claim
+  labels:
+    type: api
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+  storageClassName: vcloud-direct-policy

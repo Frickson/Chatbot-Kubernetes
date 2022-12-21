@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: socketserver
+  name: socketserver
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: socketserver
+  template:
+    metadata:
+      labels:
+        app: socketserver
+    spec:
+      containers:
+      - env:
+        - name: MAMONGO_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: MAMONGO_HOST
+              name: db-env
+        - name: MASQL_HOST
+          valueFrom:
+            configMapKeyRef:
+              key: MASQL_HOST
+              name: db-env
+        - name: MYSQL_DATABASE
+          valueFrom:
+            configMapKeyRef:
+              key: MYSQL_DATABASE
+              name: db-env
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              key: MYSQL_PASSWORD
+              name: db-env
+        - name: MYSQL_USER
+          valueFrom:
+            configMapKeyRef:
+              key: MYSQL_USER
+              name: db-env
+        - name: NODE_ENV
+          value: development
+        - name: jwtSecret
+          value: soseCREToMg8228
+        image: msbunecsc/cb-socketserver
+        name: socketserver
+        volumeMounts:
+        - mountPath: /home/node/app/volume
+          name: socketserver-pv
+      restartPolicy: Always
+      volumes:
+      - name: socketserver-pv
+        persistentVolumeClaim:
+          claimName: socketserver-claim
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: socketserver
+  name: socketserver
+spec:
+  clusterIP: None
+  ports:
+  - name: headless
+    port: 55555
+    targetPort: 0
+  selector:
+    app: socketserver
+status:
+  loadBalancer: {}

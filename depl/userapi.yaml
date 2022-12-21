@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: userapi
+  name: userapi
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: userapi
+  template:
+    metadata:
+      labels:
+        app: userapi
+    spec:
+      containers:
+      - env:
+        - name: MAMONGO_HOST
+          value: mongoserver
+        - name: MASQL_HOST
+          value: dbserver
+        - name: MYSQL_DATABASE
+          value: NECAIDB
+        - name: MYSQL_PASSWORD
+          value: NECAIDBuser20171020
+        - name: MYSQL_USER
+          value: necaidbuser
+        - name: NODE_ENV
+          value: development
+        - name: jwtSecret
+          value: soseCREToMg8228
+        - name: confidentLevel
+          value: '0.100'
+        - name: cycle
+          value: '100'
+        - name: mode
+          value: AFM
+        image: msbunecsc/cb-userapi
+        name: userapi
+        volumeMounts:
+        - mountPath: /home/node/app/env
+          name: env-var
+          readOnly: true
+      restartPolicy: Always
+      volumes:
+      - name: env-var
+        configMap:
+          name: env-var
+          items:
+            - key: .env
+              path: .env
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: userapi
+  name: userapi
+spec:
+  clusterIP: None
+  ports:
+  - name: headless
+    port: 55555
+    targetPort: 0
+  selector:
+    app: userapi
+status:
+  loadBalancer: {}

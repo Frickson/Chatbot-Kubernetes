@@ -19,9 +19,15 @@ spec:
       containers:
       - env:
         - name: NODE_ENV
-          value: development
+          valueFrom:
+            configMapKeyRef:
+              key: NODE_ENV
+              name: node-env
         - name: jwtSecret
-          value: soseCREToMg8228
+          valueFrom:
+            configMapKeyRef:
+              key: jwtSecret
+              name: node-env
         image: msbunecsc/cb-videoserver
         name: videoserver
         volumeMounts:

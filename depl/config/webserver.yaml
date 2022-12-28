@@ -19,19 +19,40 @@ spec:
       containers:
       - env:
         - name: MAMONGO_HOST
-          value: mongoserver
+          valueFrom:
+            configMapKeyRef:
+              key: MAMONGO_HOST
+              name: db-env
         - name: MASQL_HOST
-          value: dbserver
+          valueFrom:
+            configMapKeyRef:
+              key: MASQL_HOST
+              name: db-env
         - name: MYSQL_DATABASE
-          value: NECAIDB
+          valueFrom:
+            configMapKeyRef:
+              key: MYSQL_DATABASE
+              name: db-env
         - name: MYSQL_PASSWORD
-          value: NECAIDBuser20171020
+          valueFrom:
+            configMapKeyRef:
+              key: MYSQL_PASSWORD
+              name: db-env
         - name: MYSQL_USER
-          value: necaisbuser      
+          valueFrom:
+            configMapKeyRef:
+              key: MYSQL_USER
+              name: db-env   
         - name: NODE_ENV
-          value: development
+          valueFrom:
+            configMapKeyRef:
+              key: NODE_ENV
+              name: node-env
         - name: jwtSecret
-          value: soseCREToMg8228
+          valueFrom:
+            configMapKeyRef:
+              key: jwtSecret
+              name: node-env
         image: msbunecsc/cb-webserver
         name: webserver
         ports:

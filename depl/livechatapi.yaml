@@ -42,11 +42,17 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: MYSQL_USER
-              name: db-env  
+              name: db-env   
         - name: NODE_ENV
-          value: development
+          valueFrom:
+            configMapKeyRef:
+              key: NODE_ENV
+              name: node-env
         - name: jwtSecret
-          value: soseCREToMg8228
+          valueFrom:
+            configMapKeyRef:
+              key: jwtSecret
+              name: node-env
         image: msbunecsc/cb-livechatapi
         name: livechatapi
         volumeMounts:

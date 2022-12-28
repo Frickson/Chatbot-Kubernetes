@@ -21,6 +21,21 @@ spec:
         name: trainengine
         ports:
         - containerPort: 8099
+        volumeMounts:
+        - mountPath: /home/node/app/dialogues
+          subPath: dialogues
+          name: dialogues-pv
+        - mountPath: /home/node/app/coreengine
+          subPath: coreengine
+          name: coreengine-pv
+      restartPolicy: Always
+      volumes:
+      - name: coreengine-pv
+        persistentVolumeClaim:
+          claimName: coreengine-claim
+      - name: coreengine-pv
+        persistentVolumeClaim:
+          claimName: coreengine-claim
 
 ---
 

@@ -3,7 +3,7 @@ kind: PersistentVolume
 metadata:
   name: filestorage
   labels:
-    type: vmware
+    app: webserver
 spec:
   capacity:
     storage: 100Mi  # allocate the space you want
@@ -22,7 +22,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: filestorage-claim
   labels:
-    type: vmware
+    app: webserver
 spec:
   accessModes:
   - ReadWriteOnce
@@ -31,3 +31,18 @@ spec:
       storage: 100Mi
   storageClassName: vcloud-direct-policy
 
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: filestorage-claim-01
+  labels:
+    app: fileserver
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+  storageClassName: vcloud-direct-policy

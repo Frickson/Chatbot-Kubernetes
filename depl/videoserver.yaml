@@ -31,7 +31,8 @@ spec:
         image: msbunecsc/cb-videoserver
         name: videoserver
         volumeMounts:
-        - mountPath: /home/node/app/volume
+        - mountPath: /home/node/app/volume/video
+          subPath: video
           name: videoserver-pv
       restartPolicy: Always
       volumes:

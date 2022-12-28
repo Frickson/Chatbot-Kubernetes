@@ -26,7 +26,7 @@ spec:
       volumes:
       - name: filestoragevol
         persistentVolumeClaim:
-          claimName: filestorage-claim
+          claimName: filestorage-claim-01
 ---
 
 

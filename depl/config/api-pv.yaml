@@ -111,3 +111,37 @@ spec:
     requests:
       storage: 100Mi
   storageClassName: vcloud-direct-policy
+
+  
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dialouges-claim
+  labels:
+    type: api
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+  storageClassName: vcloud-direct-policy
+
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: coreengine-claim
+  labels:
+    type: api
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+  storageClassName: vcloud-direct-policy

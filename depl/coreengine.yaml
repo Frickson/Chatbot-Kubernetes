@@ -19,6 +19,22 @@ spec:
       containers:
       - image: msbunecsc/cb-coreengine
         name: coreengine
+        volumeMounts:
+        - mountPath: /home/node/app/dialogues
+          subPath: dialogues
+          name: dialogues-pv
+        - mountPath: /home/node/app/coreengine
+          subPath: coreengine
+          name: coreengine-pv
+      restartPolicy: Always
+      volumes:
+      - name: coreengine-pv
+        persistentVolumeClaim:
+          claimName: dialouges-claim
+      - name: coreengine-pv
+        persistentVolumeClaim:
+          claimName: coreengine-claim
+        
 
 ---
 

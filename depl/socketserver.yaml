@@ -56,7 +56,8 @@ spec:
         image: msbunecsc/cb-socketserver
         name: socketserver
         volumeMounts:
-        - mountPath: /home/node/app/volume
+        - mountPath: /home/node/app/volume/socket
+          subPath: socket
           name: socketserver-pv
       restartPolicy: Always
       volumes:

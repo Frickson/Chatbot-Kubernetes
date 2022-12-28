@@ -75,8 +75,14 @@ spec:
         - mountPath: /home/node/app/env
           name: env-var
           readOnly: true
+        - mountPath: /home/node/app/volume/authapi
+          subPath: authapi
+          name: authapi-pv
       restartPolicy: Always
       volumes:
+      - name: authapi-pv
+        persistentVolumeClaim:
+          claimName: authapi-claim
       - name: env-var
         configMap:
           name: env-var

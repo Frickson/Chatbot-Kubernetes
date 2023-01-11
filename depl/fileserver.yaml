@@ -6,8 +6,6 @@ metadata:
   name: fileserver
 spec:
   replicas: 1
-  strategy:
-    type: Recreate
   selector:
     matchLabels:
       app: fileserver

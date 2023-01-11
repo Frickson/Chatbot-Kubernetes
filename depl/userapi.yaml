@@ -6,8 +6,6 @@ metadata:
   name: userapi
 spec:
   replicas: 1
-  strategy:
-    type: Recreate
   selector:
     matchLabels:
       app: userapi
@@ -62,9 +60,9 @@ spec:
         image: msbunecsc/cb-userapi
         name: userapi
         volumeMounts:
-        - mountPath: /home/node/app/env
-          name: env-var
-          readOnly: true
+        # - mountPath: /home/node/app/env
+        #   name: env-var
+        #   readOnly: true
         - mountPath: /home/node/app/volume/userapi
           subPath: userapi
           name: userapi-pv
@@ -73,12 +71,12 @@ spec:
       - name: userapi-pv
         persistentVolumeClaim:
           claimName: userapi-claim
-      - name: env-var
-        configMap:
-          name: env-var
-          items:
-            - key: .env
-              path: .env
+      # - name: env-var
+      #   configMap:
+      #     name: env-var
+      #     items:
+      #       - key: .env
+      #         path: .env
 
 ---
 

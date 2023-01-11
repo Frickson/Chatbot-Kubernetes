@@ -13,7 +13,26 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: vcloud-direct-policy
   hostPath:
-    path: /mnt/filestorage
+    path: /mnt/filestorage-webserver
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: filestorage
+  labels:
+    app: fileserver
+spec:
+  capacity:
+    storage: 100Mi  # allocate the space you want
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: vcloud-direct-policy
+  hostPath:
+    path: /mnt/filestorage-fileserver
 
 ---
 

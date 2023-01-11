@@ -6,8 +6,6 @@ metadata:
   name: webserver
 spec:
   replicas: 1
-  strategy:
-    type: Recreate
   selector:
     matchLabels:
       app: webserver
@@ -86,3 +84,4 @@ spec:
   selector:
     app: webserver
   type: LoadBalancer
+  loadBalancerIP: 10.1.64.33

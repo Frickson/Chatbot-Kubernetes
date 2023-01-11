@@ -52,6 +52,7 @@ spec:
   selector:
     app: phpmyadmin
   type: LoadBalancer
+  loadBalancerIP: 10.1.64.33
 
 
 

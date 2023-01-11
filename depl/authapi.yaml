@@ -6,8 +6,6 @@ metadata:
   name: authapi
 spec:
   replicas: 1
-  strategy:
-    type: Recreate
   selector:
     matchLabels:
       app: authapi
@@ -72,9 +70,9 @@ spec:
         image: msbunecsc/cb-authapi
         name: authapi
         volumeMounts:
-        - mountPath: /home/node/app/env
-          name: env-var
-          readOnly: true
+        # - mountPath: /home/node/app/env
+        #   name: env-var
+        #   readOnly: true
         - mountPath: /home/node/app/volume/authapi
           subPath: authapi
           name: authapi-pv
@@ -83,12 +81,12 @@ spec:
       - name: authapi-pv
         persistentVolumeClaim:
           claimName: authapi-claim
-      - name: env-var
-        configMap:
-          name: env-var
-          items:
-            - key: .env
-              path: .env
+      # - name: env-var
+      #   configMap:
+      #     name: env-var
+      #     items:
+      #       - key: .env
+      #         path: .env
 
 ---
 

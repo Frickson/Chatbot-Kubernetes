@@ -53,12 +53,13 @@ kubectl get service
 </p>
 <p align="center"><i>Figure 2: List all services</i></p>
 <br/>
-[image-ss-service-external-ip]
+
 
 4. Setup Database
     - Open Phpmyadmin on broswer
     - Import database
     - Configure upload size (Optional)
+
 https://stackoverflow.com/questions/3958615/import-file-size-limit-in-phpmyadmin
 
 ### **Step 4: Provision other Applications**

@@ -20,6 +20,7 @@ git clone https://github.com/Frickson/Test-node.git
 ### **Step 2: Create Secret, ConfigMap, Persistent Volume and Persistent Volume Claim**
 The following command will apply all the YAML files inside the **config** folder.
 ```
+cd  depl
 kubectl apply -f /config
 ```
 
@@ -37,12 +38,11 @@ kubectl apply -f phpmyadmin
 3. Obtain external IP address.
 We can use the external IP to access Phpmyadmin pod from browser.
 
-Example Kubernetes service YAML file configuration.
+[make-as-image-tag]Example Kubernetes service YAML file configuration.
 [image-service-type-loadbalancer]
 
-```
-kubectl get service
-```
+> kubectl get service
+
 
 [image-ss-service-external-ip]
 

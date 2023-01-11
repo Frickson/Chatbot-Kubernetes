@@ -41,9 +41,15 @@ We can use the external IP to access Phpmyadmin pod from browser.
 [make-as-image-tag]Example Kubernetes service YAML file configuration.
 [image-service-type-loadbalancer]
 
-> kubectl get service
-
+```
+kubectl get service
+```
 
 [image-ss-service-external-ip]
 
-4. Import Database
+4. Setup Database
+    - Open Phpmyadmin on broswer
+    - Import database
+    - Configure upload size (Optional)
+    https://stackoverflow.com/questions/3958615/import-file-size-limit-in-phpmyadmin
+    - 

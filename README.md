@@ -20,7 +20,7 @@ git clone https://github.com/Frickson/Test-node.git
 ### **Step 2: Create Secret, ConfigMap, Persistent Volume and Persistent Volume Claim**
 The following command will apply all the YAML files inside the **config** folder.
 ```
-cd  depl
+cd depl
 kubectl apply -f /config
 ```
 
@@ -38,18 +38,34 @@ kubectl apply -f phpmyadmin
 3. Obtain external IP address.
 We can use the external IP to access Phpmyadmin pod from browser.
 
-[make-as-image-tag]Example Kubernetes service YAML file configuration.
-[image-service-type-loadbalancer]
+
+<p align="center">
+   <img src="https://github.com/Frickson/Test-node/tree/main/image/services" alt="example service configuration"/>
+</p>
+<p align="center"><i>Figure 1: Example Kubernetes service YAML file configuration.</i></p>
+<br/>
 
 ```
 kubectl get service
 ```
-
+<p align="center">
+   <img src="https://github.com/Frickson/Test-node/tree/main/image/services" alt="services"/>
+</p>
+<p align="center"><i>Figure 2: List all services</i></p>
+<br/>
 [image-ss-service-external-ip]
 
 4. Setup Database
     - Open Phpmyadmin on broswer
     - Import database
     - Configure upload size (Optional)
-    https://stackoverflow.com/questions/3958615/import-file-size-limit-in-phpmyadmin
-    - 
+https://stackoverflow.com/questions/3958615/import-file-size-limit-in-phpmyadmin
+
+### **Step 4: Provision other Applications**
+The following command will apply all the YAML files inside the **config** folder.
+```
+cd ..
+kubectl apply -f /depl
+```
+
+### **Step 5: Access web application from browser**

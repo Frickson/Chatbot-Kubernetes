@@ -70,3 +70,5 @@ kubectl apply -f /depl
 ```
 
 ### **Step 5: Access web application from browser**
+1. Copy External IP and open in browser
+[browser-image]
